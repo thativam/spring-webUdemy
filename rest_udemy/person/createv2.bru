@@ -1,0 +1,21 @@
+meta {
+  name: createv2
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{url}}/v2
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "firstName":"QA2224",
+    "lastName":"Testad2or",
+    "address":"R.sd das palmeiras bem longe",
+    "gender" : "NONBIN",
+    "birthDay" : "2025-02-01"
+  }
+}

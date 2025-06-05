@@ -13,3 +13,6 @@ spring:
       hibernate:
     show-sql: false
     open-in-view: false
+logging:
+  level:
+    com.brainyit.rest.apirest.service.impl: DEBUG

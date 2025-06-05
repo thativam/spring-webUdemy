@@ -4,6 +4,8 @@ import com.brainyit.rest.apirest.exception.ResourceNotFoundException;
 import com.brainyit.rest.apirest.model.Person;
 import com.brainyit.rest.apirest.repository.PersonRepository;
 import com.brainyit.rest.apirest.service.PeopleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ public class PeopleServiceImpl implements PeopleService {
 
     @Autowired
     private PersonRepository personRepository;
+
+    private Logger log = LoggerFactory.getLogger(PeopleServiceImpl.class.getName());
 
     PeopleServiceImpl(PersonRepository personRepository) {
         this.personRepository = personRepository;

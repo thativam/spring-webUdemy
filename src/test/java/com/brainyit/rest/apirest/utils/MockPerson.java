@@ -1,6 +1,6 @@
 package com.brainyit.rest.apirest.utils;
 
-import com.brainyit.rest.apirest.dto.PersonDTO;
+import com.brainyit.rest.apirest.dto.v1.PersonDTO;
 import com.brainyit.rest.apirest.model.Person;
 
 import java.util.ArrayList;

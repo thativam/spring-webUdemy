@@ -8,12 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 
 
-import com.brainyit.rest.apirest.dto.PersonDTO;
+import com.brainyit.rest.apirest.dto.v1.PersonDTO;
 import com.brainyit.rest.apirest.model.Person;
 import com.brainyit.rest.apirest.utils.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 public class ObjectMapperTests {
     MockPerson inputObject;

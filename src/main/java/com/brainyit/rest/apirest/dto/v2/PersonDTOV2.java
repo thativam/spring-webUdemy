@@ -1,4 +1,4 @@
-package com.brainyit.rest.apirest.dto;
+package com.brainyit.rest.apirest.dto.v2;
 
 import com.brainyit.rest.apirest.model.Person;
 import lombok.AllArgsConstructor;
@@ -6,15 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonDTO implements Serializable {
+public class PersonDTOV2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,7 +22,7 @@ public class PersonDTO implements Serializable {
     private String firstName;
 
     private String lastName;
-
+    private Date birthDay;
     private String address;
     private String gender;
 

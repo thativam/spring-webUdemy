@@ -1,9 +1,11 @@
 package com.brainyit.rest.apirest.service.impl;
 
-import com.brainyit.rest.apirest.dto.PersonDTO;
+import com.brainyit.rest.apirest.dto.v1.PersonDTO;
+import com.brainyit.rest.apirest.dto.v2.PersonDTOV2;
 import com.brainyit.rest.apirest.exception.ResourceNotFoundException;
 
 import com.brainyit.rest.apirest.mapper.ObjectMapper;
+import com.brainyit.rest.apirest.mapper.customMapper.PersonMapper;
 import com.brainyit.rest.apirest.model.Person;
 import com.brainyit.rest.apirest.repository.PersonRepository;
 import com.brainyit.rest.apirest.service.PeopleService;
@@ -19,6 +21,9 @@ public class PeopleServiceImpl implements PeopleService {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private PersonMapper objectMapper;
 
     private Logger log = LoggerFactory.getLogger(PeopleServiceImpl.class.getName());
 
@@ -63,5 +68,11 @@ public class PeopleServiceImpl implements PeopleService {
 
         return ObjectMapper.parseObject(personRepository.save(entity), PersonDTO.class);
 
+    }
+
+    @Override
+    public PersonDTOV2 createV2(PersonDTOV2 personDTOV2) {
+
+        return objectMapper.convertEntityToDTO(personRepository.save(objectMapper.convertDTOtoEntity(personDTOV2)));
     }
 }

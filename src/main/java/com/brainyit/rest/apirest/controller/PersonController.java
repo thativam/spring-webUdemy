@@ -1,6 +1,7 @@
 package com.brainyit.rest.apirest.controller;
 
-import com.brainyit.rest.apirest.dto.PersonDTO;
+import com.brainyit.rest.apirest.dto.v1.PersonDTO;
+import com.brainyit.rest.apirest.dto.v2.PersonDTOV2;
 import com.brainyit.rest.apirest.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,11 @@ public class PersonController {
     @PostMapping
     public PersonDTO create(@RequestBody PersonDTO PersonDTO) {
         return service.create(PersonDTO);
+    }
+
+    @PostMapping("/v2")
+    public PersonDTOV2 createV2(@RequestBody PersonDTOV2 personDTOV2) {
+        return service.createV2(personDTOV2);
     }
 
     @PutMapping

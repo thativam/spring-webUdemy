@@ -1,6 +1,9 @@
 package com.brainyit.rest.apirest.service.impl;
 
+import com.brainyit.rest.apirest.dto.PersonDTO;
 import com.brainyit.rest.apirest.exception.ResourceNotFoundException;
+
+import com.brainyit.rest.apirest.mapper.ObjectMapper;
 import com.brainyit.rest.apirest.model.Person;
 import com.brainyit.rest.apirest.repository.PersonRepository;
 import com.brainyit.rest.apirest.service.PeopleService;
@@ -19,24 +22,25 @@ public class PeopleServiceImpl implements PeopleService {
 
     private Logger log = LoggerFactory.getLogger(PeopleServiceImpl.class.getName());
 
-    PeopleServiceImpl(PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    PeopleServiceImpl(PersonRepository PersonRepository) {
+        this.personRepository = PersonRepository;
     }
 
     @Override
-    public Person findById(Long id) {
-        return personRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("Person not found"));
+    public PersonDTO findById(Long id) {
+        Person p = personRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("PersonDTO not found"));
+        return ObjectMapper.parseObject(p, PersonDTO.class);
 
     }
 
     @Override
-    public List<Person> findAll() {
-        return personRepository.findAll();
+    public List<PersonDTO> findAll() {
+        return ObjectMapper.parseListObjects(personRepository.findAll(), PersonDTO.class);
     }
 
     @Override
-    public Person create(Person person) {
-        return personRepository.save(person);
+    public PersonDTO create(PersonDTO PersonDTO) {
+        return ObjectMapper.parseObject(personRepository.save(ObjectMapper.parseObject(PersonDTO, Person.class)), PersonDTO.class);
     }
 
     @Override
@@ -48,16 +52,16 @@ public class PeopleServiceImpl implements PeopleService {
     }
 
     @Override
-    public Person update(Person person) {
-        Person entity = personRepository.findById(person.getId())
+    public PersonDTO update(PersonDTO PersonDTO) {
+        Person entity = personRepository.findById(PersonDTO.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 
-        entity.setFirstName(person.getFirstName());
-        entity.setLastName(person.getLastName());
-        entity.setAddress(person.getAddress());
-        entity.setGender(person.getGender());
+        entity.setFirstName(PersonDTO.getFirstName());
+        entity.setLastName(PersonDTO.getLastName());
+        entity.setAddress(PersonDTO.getAddress());
+        entity.setGender(PersonDTO.getGender());
 
-        return personRepository.save(person);
+        return ObjectMapper.parseObject(personRepository.save(entity), PersonDTO.class);
 
     }
 }

@@ -1,13 +1,14 @@
 package com.brainyit.rest.apirest.service;
 
+import com.brainyit.rest.apirest.dto.PersonDTO;
 import com.brainyit.rest.apirest.model.Person;
 
 import java.util.List;
 
 public interface PeopleService {
-    public Person findById(Long id);
-    public List<Person> findAll();
-    public Person create(Person person);
+    public PersonDTO findById(Long id);
+    public List<PersonDTO> findAll();
+    public PersonDTO create(PersonDTO person);
     public void delete(Long id);
-    public Person update(Person person);
+    public PersonDTO update(PersonDTO person);
 }

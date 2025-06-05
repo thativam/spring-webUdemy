@@ -1,6 +1,6 @@
 package com.brainyit.rest.apirest.controller;
 
-import com.brainyit.rest.apirest.model.Person;
+import com.brainyit.rest.apirest.dto.PersonDTO;
 import com.brainyit.rest.apirest.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,26 +14,26 @@ public class PersonController {
 
     @Autowired
     private PeopleService service;
-    // private PersonServices service = new PersonServices();
 
     @GetMapping
-    public List<Person> findAll() {
-        return service.findAll();
+    public List<PersonDTO> findAll() {
+        List<PersonDTO> list = service.findAll();
+        return list;
     }
 
     @GetMapping(value = "/{id}")
-    public Person findById(@PathVariable("id") Long id) {
+    public PersonDTO findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }
 
     @PostMapping
-    public Person create(@RequestBody Person person) {
-        return service.create(person);
+    public PersonDTO create(@RequestBody PersonDTO PersonDTO) {
+        return service.create(PersonDTO);
     }
 
     @PutMapping
-    public Person update(@RequestBody Person person) {
-        return service.update(person);
+    public PersonDTO update(@RequestBody PersonDTO PersonDTO) {
+        return service.update(PersonDTO);
     }
 
 

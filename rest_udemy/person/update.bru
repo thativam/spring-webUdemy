@@ -1,0 +1,22 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{url}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 1,
+    "firstName":"BrainyIt",
+    "lastName":"QA",
+    "address":"R. das palmeiras bem longe",
+    "gender" : "bin"
+  
+  }
+}

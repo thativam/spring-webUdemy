@@ -1,0 +1,21 @@
+meta {
+  name: create
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "firstName":"QA",
+    "lastName":"Testador",
+    "address":"R. das palmeiras bem longe",
+    "gender" : "NONBIN"
+  
+  }
+}

@@ -1,7 +1,9 @@
 package com.brainyit.rest.apirest.service.impl;
 
+import com.brainyit.rest.apirest.controller.PersonController;
 import com.brainyit.rest.apirest.dto.v1.PersonDTO;
 import com.brainyit.rest.apirest.dto.v2.PersonDTOV2;
+import com.brainyit.rest.apirest.exception.RequiredObjectIsNullException;
 import com.brainyit.rest.apirest.exception.ResourceNotFoundException;
 
 import com.brainyit.rest.apirest.mapper.ObjectMapper;
@@ -13,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 
@@ -34,18 +38,26 @@ public class PeopleServiceImpl implements PeopleService {
     @Override
     public PersonDTO findById(Long id) {
         Person p = personRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("PersonDTO not found"));
-        return ObjectMapper.parseObject(p, PersonDTO.class);
+        PersonDTO dto = ObjectMapper.parseObject(p, PersonDTO.class);
+        addHateoasLinks(dto);
+        log.info("Added hateoas in find by id");
+        return dto;
 
     }
 
     @Override
     public List<PersonDTO> findAll() {
-        return ObjectMapper.parseListObjects(personRepository.findAll(), PersonDTO.class);
+        List<PersonDTO> dtos = ObjectMapper.parseListObjects(personRepository.findAll(), PersonDTO.class);
+        dtos.forEach(this::addHateoasLinks);
+        return dtos;
     }
 
     @Override
-    public PersonDTO create(PersonDTO PersonDTO) {
-        return ObjectMapper.parseObject(personRepository.save(ObjectMapper.parseObject(PersonDTO, Person.class)), PersonDTO.class);
+    public PersonDTO create(PersonDTO personDto) {
+        if (personDto == null) throw new RequiredObjectIsNullException();
+        PersonDTO dto = ObjectMapper.parseObject(personRepository.save(ObjectMapper.parseObject(personDto, Person.class)), PersonDTO.class);
+        addHateoasLinks(dto);
+        return dto;
     }
 
     @Override
@@ -53,18 +65,19 @@ public class PeopleServiceImpl implements PeopleService {
         Person entity = personRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         personRepository.delete(entity);
-        personRepository.deleteById(id);
     }
 
     @Override
-    public PersonDTO update(PersonDTO PersonDTO) {
-        Person entity = personRepository.findById(PersonDTO.getId())
+    public PersonDTO update(PersonDTO personDto) {
+        if (personDto == null) throw new RequiredObjectIsNullException();
+
+        Person entity = personRepository.findById(personDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 
-        entity.setFirstName(PersonDTO.getFirstName());
-        entity.setLastName(PersonDTO.getLastName());
-        entity.setAddress(PersonDTO.getAddress());
-        entity.setGender(PersonDTO.getGender());
+        entity.setFirstName(personDto.getFirstName());
+        entity.setLastName(personDto.getLastName());
+        entity.setAddress(personDto.getAddress());
+        entity.setGender(personDto.getGender());
 
         return ObjectMapper.parseObject(personRepository.save(entity), PersonDTO.class);
 
@@ -75,4 +88,12 @@ public class PeopleServiceImpl implements PeopleService {
 
         return objectMapper.convertEntityToDTO(personRepository.save(objectMapper.convertDTOtoEntity(personDTOV2)));
     }
+
+     private void addHateoasLinks(PersonDTO dto) {
+        dto.add(linkTo(methodOn(PersonController.class).findById(dto.getId())).withSelfRel().withType("GET"));
+        dto.add(linkTo(methodOn(PersonController.class).findAll()).withRel("findAll").withType("GET"));
+        dto.add(linkTo(methodOn(PersonController.class).create(dto)).withRel("create").withType("POST"));
+        dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("update").withType("PUT"));
+        dto.add(linkTo(methodOn(PersonController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
+    } 
 }

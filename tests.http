@@ -1,0 +1,26 @@
+GET http://localhost:8080/person
+Accept: application/xml
+
+###
+
+POST http://localhost:8080/person HTTP/1.1
+content-type: application/json
+Accept: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Doe2",
+    "gender": "male",
+    "address": "Far away"
+}
+
+###
+POST http://localhost:8080/person HTTP/1.1
+content-type: application/yaml
+Accept: application/json
+
+---
+firstName: "Jonies"
+lastName: "Doe2"
+gender: "male"
+address: "Far away"

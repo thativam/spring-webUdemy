@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import org.springframework.hateoas.RepresentationModel;
 
@@ -14,7 +13,6 @@ import org.springframework.hateoas.RepresentationModel;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,11 +24,6 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
 
     private String address;
     private String gender;
-
- 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getAddress(), getGender());
-    }
+    private Boolean enabled;
 
 }

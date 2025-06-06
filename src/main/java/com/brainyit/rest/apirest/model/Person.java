@@ -34,6 +34,9 @@ public class Person implements Serializable {
     @Column(nullable = false, length = 6)
     private String gender;
 
+    @Column(nullable = false)
+    private Boolean enabled;
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Person person)) return false;

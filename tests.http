@@ -1,5 +1,6 @@
 GET http://localhost:8080/person
-Accept: application/xml
+Accept: application/json
+Origin: http://localhost:3000
 
 ###
 

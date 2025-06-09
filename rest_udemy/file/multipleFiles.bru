@@ -1,0 +1,15 @@
+meta {
+  name: multipleFiles
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url}}/api/file/v1/uploadMultipleFiles
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  files: @file(C:\Users\thati\Área de Trabalho\UFSCAR\Brainyit\CURSOS\springapi\apiRest\mvnw|C:\Users\thati\Área de Trabalho\UFSCAR\Brainyit\CURSOS\springapi\apiRest\mvnw.cmd|C:\Users\thati\Área de Trabalho\UFSCAR\Brainyit\CURSOS\springapi\apiRest\tests.http)
+}

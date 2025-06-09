@@ -33,10 +33,6 @@ public class PeopleServiceImpl implements PeopleService {
 
     private Logger log = LoggerFactory.getLogger(PeopleServiceImpl.class.getName());
 
-    PeopleServiceImpl(PersonRepository PersonRepository) {
-        this.personRepository = PersonRepository;
-    }
-
     @Override
     public PersonDTO findById(Long id) {
         Person p = personRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("PersonDTO not found"));

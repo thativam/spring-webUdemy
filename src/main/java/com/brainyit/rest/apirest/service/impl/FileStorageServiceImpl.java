@@ -4,8 +4,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
+import com.brainyit.rest.apirest.exception.FileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,7 +38,7 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     public String storeFile(@NotNull MultipartFile file){
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         try{
             if(fileName.contains("..")){
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
@@ -44,11 +48,25 @@ public class FileStorageServiceImpl implements FileStorageService {
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-            return targetLocation.toString();
+            return fileName;
         }catch(Exception e){
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", e);
         }
 
+    }
+
+    public Resource loadFileAsResource(String fileName) {
+        try {
+            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists()) {
+                return resource;
+            } else {
+                throw new FileNotFoundException("File not found " + fileName);
+            }
+        } catch (Exception e) {
+            throw new FileNotFoundException("File not found " + fileName, e);
+        }
     }
 
 }

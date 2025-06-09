@@ -1,0 +1,11 @@
+meta {
+  name: Download
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{url}}/api/file/v1/downloadFile/tests.http
+  body: none
+  auth: inherit
+}

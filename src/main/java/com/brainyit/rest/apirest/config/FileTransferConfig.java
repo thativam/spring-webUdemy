@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "file.transfer")
+@ConfigurationProperties(prefix = "file")
 public class FileTransferConfig {
     
     private String uploadDir;

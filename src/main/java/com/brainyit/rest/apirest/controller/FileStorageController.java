@@ -1,6 +1,5 @@
 package com.brainyit.rest.apirest.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +10,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping("/api/file/v1")
 public class FileStorageController {
 
-    private FileStorageService service;
+    private final FileStorageService service;
 
     private static final Logger logger = LoggerFactory.getLogger(FileStorageController.class);
     public FileStorageController(FileStorageService service) {

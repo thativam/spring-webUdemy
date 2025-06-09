@@ -31,7 +31,7 @@ public class PeopleServiceImpl implements PeopleService {
     @Autowired
     private PersonMapper objectMapper;
 
-    private Logger log = LoggerFactory.getLogger(PeopleServiceImpl.class.getName());
+    private final Logger log = LoggerFactory.getLogger(PeopleServiceImpl.class.getName());
 
     @Override
     public PersonDTO findById(Long id) {
@@ -96,6 +96,7 @@ public class PeopleServiceImpl implements PeopleService {
             .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         personRepository.disablePerson(id);
 
+        if(personRepository.findById(id).isEmpty()) throw  new ResourceNotFoundException("No records found for this ID!");
         Person entity = personRepository.findById(id).get();
         PersonDTO dto = ObjectMapper.parseObject(entity, PersonDTO.class);
         addHateoasLinks(dto);

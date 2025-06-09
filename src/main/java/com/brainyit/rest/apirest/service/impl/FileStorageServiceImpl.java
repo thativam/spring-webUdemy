@@ -22,12 +22,11 @@ import jakarta.validation.constraints.NotNull;
 
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
-    private Path fileStorageLocation;
+    private final Path fileStorageLocation;
 
     @Autowired
     public FileStorageServiceImpl(FileTransferConfig config) {
-        Path path = Paths.get(config.getUploadDir()).toAbsolutePath().normalize();
-        this.fileStorageLocation = path;
+        this.fileStorageLocation = Paths.get(config.getUploadDir()).toAbsolutePath().normalize();;
 
         try {
             Files.createDirectories(this.fileStorageLocation);

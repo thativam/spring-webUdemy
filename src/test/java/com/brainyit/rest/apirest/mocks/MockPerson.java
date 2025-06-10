@@ -1,4 +1,4 @@
-package com.brainyit.rest.apirest.utils;
+package com.brainyit.rest.apirest.mocks;
 
 import com.brainyit.rest.apirest.dto.v1.PersonDTO;
 import com.brainyit.rest.apirest.model.Person;
@@ -50,5 +50,4 @@ public class MockPerson {
         person.setLastName("Last Name Test" + number);
         return person;
     }
-
 }

@@ -26,7 +26,7 @@ public class AuthController {
         var token = service.signIn(credentials);
 
         if (token == null) ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
-        return  ResponseEntity.ok().body(token);
+        return  token;
     }
 
     @PutMapping("/refresh/{username}")
@@ -36,7 +36,7 @@ public class AuthController {
         if (parametersAreInvalid(username, refreshToken)) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
         var token = service.refreshToken(username, refreshToken);
         if (token == null) ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
-        return  ResponseEntity.ok().body(token);
+        return  token;
     }
 
     @PostMapping(value = "/createUser",

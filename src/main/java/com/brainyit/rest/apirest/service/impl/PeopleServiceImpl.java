@@ -76,8 +76,9 @@ public class PeopleServiceImpl implements PeopleService {
         entity.setLastName(personDto.getLastName());
         entity.setAddress(personDto.getAddress());
         entity.setGender(personDto.getGender());
-
-        return ObjectMapper.parseObject(personRepository.save(entity), PersonDTO.class);
+        PersonDTO dto = ObjectMapper.parseObject(personRepository.save(entity), PersonDTO.class);
+        addHateoasLinks(dto);
+        return dto;
 
     }
 

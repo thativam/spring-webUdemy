@@ -14,4 +14,9 @@ public class AccountCredentialsDTO implements Serializable {
     private String username;
     private String password;
     private String fullName;
+
+    public AccountCredentialsDTO(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }

@@ -1,4 +1,4 @@
-package com.brainyit.rest.apirest.SecurityJwt;
+package com.brainyit.rest.apirest.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -6,6 +6,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -14,7 +15,7 @@ import java.io.IOException;
 
 public class JwtFilter extends GenericFilterBean {
 
-    private SecurityJwtProvider tokenProvider;
+    private final SecurityJwtProvider tokenProvider;
 
     public JwtFilter(SecurityJwtProvider tokenProvider) {
         this.tokenProvider = tokenProvider;

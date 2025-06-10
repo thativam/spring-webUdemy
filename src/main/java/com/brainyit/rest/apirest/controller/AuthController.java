@@ -15,6 +15,11 @@ public class AuthController {
 
     AuthServiceImpl service;
 
+    @Autowired
+    AuthController(AuthServiceImpl service) {
+        this.service = service;
+    }
+
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestBody AccountCredentialsDTO credentials) {
         if (credentialsIsInvalid(credentials))return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");

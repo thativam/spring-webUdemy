@@ -1,4 +1,4 @@
-package com.brainyit.rest.apirest.SecurityJwt;
+package com.brainyit.rest.apirest.security;
 
 
 import com.auth0.jwt.JWT;
@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,8 +32,12 @@ public class SecurityJwtProvider {
     @Value("${security.jwt.token.expire-lenght:3600000}")
     private long validityInMilliseconds = 3600000;
 
+    private final UserDetailsService userDetailsService;
+
     @Autowired
-    private UserDetailsService userDetailsService;
+    SecurityJwtProvider(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     Algorithm algorithm = null;
 

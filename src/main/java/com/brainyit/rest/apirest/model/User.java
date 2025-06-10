@@ -42,7 +42,7 @@ public class User implements Serializable, UserDetails {
     @Column
     private Boolean account_non_locked;
 
-    @Column
+    @Column(name = "credentials_non_expired")
     private  Boolean account_credentials_non_expired;
 
     @Column

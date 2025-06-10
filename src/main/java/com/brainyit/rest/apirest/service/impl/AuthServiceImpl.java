@@ -1,6 +1,6 @@
 package com.brainyit.rest.apirest.service.impl;
 
-import com.brainyit.rest.apirest.SecurityJwt.SecurityJwtProvider;
+import com.brainyit.rest.apirest.security.SecurityJwtProvider;
 import com.brainyit.rest.apirest.dto.v1.AccountCredentialsDTO;
 import com.brainyit.rest.apirest.dto.v1.TokenDTO;
 import com.brainyit.rest.apirest.exception.RequiredObjectIsNullException;
@@ -25,14 +25,18 @@ import java.util.Map;
 public class AuthServiceImpl {
     Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
 
-    @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
     private SecurityJwtProvider tokenProvider;
 
-    @Autowired
     private UserRepository repository;
+
+    @Autowired
+    AuthServiceImpl(AuthenticationManager authenticationManager, SecurityJwtProvider tokenProvider, UserRepository repository) {
+        this.authenticationManager = authenticationManager;
+        this.tokenProvider = tokenProvider;
+        this.repository = repository;
+    }
 
     public ResponseEntity<TokenDTO> signIn(AccountCredentialsDTO credentials) {
         authenticationManager.authenticate(

@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: {{url}}/person
+  url: {{url}}/api/person
   body: none
   auth: inherit
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJBRE1JTiIsIk1BTkFHRVIiXSwiaWF0IjoxNzQ5NTYwMTQyLCJleHAiOjE3NDk1NjM3NDIsInN1YiI6ImxlYW5kcm8iLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAifQ.fSGkl06dSnBGYVL52H4kSze4MogLHr5aMs2sYlyHUrQ
 }

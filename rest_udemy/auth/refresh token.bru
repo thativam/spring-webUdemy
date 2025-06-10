@@ -1,0 +1,19 @@
+meta {
+  name: refresh token
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{url}}/auth/refresh/:username
+  body: none
+  auth: inherit
+}
+
+params:path {
+  username: leandro
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJBRE1JTiIsIk1BTkFHRVIiXSwiaWF0IjoxNzQ5NTU5ODgwLCJleHAiOjE3NDk1NzA2ODAsInN1YiI6ImxlYW5kcm8ifQ.mZXGdp46ShBN7BV0haSv0PfgGuyq0qZU8z3CnC9rKHM
+}

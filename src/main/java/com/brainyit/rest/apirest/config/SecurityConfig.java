@@ -1,8 +1,8 @@
 package com.brainyit.rest.apirest.config;
 
 
-import com.brainyit.rest.apirest.SecurityJwt.JwtFilter;
-import com.brainyit.rest.apirest.SecurityJwt.SecurityJwtProvider;
+import com.brainyit.rest.apirest.security.JwtFilter;
+import com.brainyit.rest.apirest.security.SecurityJwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,8 +25,14 @@ public class SecurityConfig {
 
     private final SecurityJwtProvider tokenProvider;
 
+    @Autowired
     public SecurityConfig(SecurityJwtProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
+    }
+
+    @Bean
+    public JwtFilter jwtFilter() {
+        return new JwtFilter(tokenProvider);
     }
 
     @Bean

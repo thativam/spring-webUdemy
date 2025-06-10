@@ -1,10 +1,7 @@
 package com.brainyit.rest.apirest.exception.handler;
 
 
-import com.brainyit.rest.apirest.exception.CustomExceptionResponse;
-import com.brainyit.rest.apirest.exception.FileNotFoundException;
-import com.brainyit.rest.apirest.exception.FileStorageException;
-import com.brainyit.rest.apirest.exception.ResourceNotFoundException;
+import com.brainyit.rest.apirest.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -48,6 +45,13 @@ public class CustomResponseHandler extends ResponseEntityExceptionHandler {
         CustomExceptionResponse response = new CustomExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 
-    }    
+    }
+
+    @ExceptionHandler(InvalidJWTAuthenticationException.class)
+    public final ResponseEntity<CustomExceptionResponse> handleBadRequestException(final InvalidJWTAuthenticationException ex, final WebRequest request) {
+        CustomExceptionResponse response = new CustomExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+
+    }
 
 }

@@ -5,9 +5,13 @@ meta {
 }
 
 post {
-  url: {{url}}/person
+  url: {{url}}/api/person
   body: json
-  auth: inherit
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJBRE1JTiIsIk1BTkFHRVIiXSwiaWF0IjoxNzQ5NjkzNzIyLCJleHAiOjE3NDk2OTczMjIsInN1YiI6ImxlYW5kcm8iLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAifQ.snWpkOInF9LHnklfeSkR7oje8iG63fN7itXW5L0JYng
 }
 
 body:json {
